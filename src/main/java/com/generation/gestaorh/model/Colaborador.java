@@ -1,7 +1,16 @@
 package com.generation.gestaorh.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_colaboradores")
@@ -22,7 +31,12 @@ public class Colaborador {
 
     @NotNull(message = "O salário é obrigatório")
     private Double salario;
-
+    
+    @ManyToOne
+    @JoinColumn(name = "departamento_id")
+    @JsonIgnoreProperties("colaborador")
+    private Departamento departamento;
+    
     // Getters e Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -38,4 +52,13 @@ public class Colaborador {
 
     public Double getSalario() { return salario; }
     public void setSalario(Double salario) { this.salario = salario; }
+
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+    
+    
 }
