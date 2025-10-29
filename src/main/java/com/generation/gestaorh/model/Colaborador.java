@@ -1,5 +1,7 @@
 package com.generation.gestaorh.model;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -27,10 +29,11 @@ public class Colaborador {
     private String cargo;
 
     @NotBlank(message = "O setor é obrigatório")
+  
     private String setor;
 
     @NotNull(message = "O salário é obrigatório")
-    private Double salario;
+    private BigDecimal salario;
     
     @ManyToOne
     @JoinColumn(name = "departamento_id")
@@ -50,8 +53,8 @@ public class Colaborador {
     public String getSetor() { return setor; }
     public void setSetor(String setor) { this.setor = setor; }
 
-    public Double getSalario() { return salario; }
-    public void setSalario(Double salario) { this.salario = salario; }
+    public BigDecimal getSalario() { return salario; }
+    public void setSalario(BigDecimal salario) { this.salario = salario; }
 
 	public Departamento getDepartamento() {
 		return departamento;
