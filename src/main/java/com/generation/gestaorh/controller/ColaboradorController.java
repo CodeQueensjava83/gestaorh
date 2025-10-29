@@ -26,9 +26,10 @@ import jakarta.validation.Valid;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ColaboradorController {
 
+	
     @Autowired
     private ColaboradorRepository colaboradorRepository;
-
+    
     // GET all
     @GetMapping("/all")
     public ResponseEntity<List<Colaborador>> getAll() {
