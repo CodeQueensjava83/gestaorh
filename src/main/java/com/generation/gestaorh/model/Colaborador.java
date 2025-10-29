@@ -34,7 +34,7 @@ public class Colaborador {
     private String setor;
 
     @NotNull(message = "O salário é obrigatório")
-    @DecimalMin(value = "0.01", message = "O preço deve ser maior que zero.")
+    @DecimalMin(value = "0.001")
     private BigDecimal salario;
     
     @ManyToOne
