@@ -30,7 +30,7 @@ public class ColaboradorController {
     private ColaboradorRepository colaboradorRepository;
 
     // GET all
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Colaborador>> getAll() {
         return ResponseEntity.ok(colaboradorRepository.findAll());
     }
@@ -43,20 +43,14 @@ public class ColaboradorController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    // GET by nome
-    @GetMapping("/nome/{nome}")
-    public ResponseEntity<List<Colaborador>> getByNome(@PathVariable String nome) {
-        return ResponseEntity.ok(colaboradorRepository.findAllByNomeContainingIgnoreCase(nome));
-    }
-
     // POST
-    @PostMapping
+    @PostMapping("/cadastrar")
     public ResponseEntity<Colaborador> post(@Valid @RequestBody Colaborador colaborador) {
         return ResponseEntity.status(HttpStatus.CREATED).body(colaboradorRepository.save(colaborador));
     }
 
     // PUT
-    @PutMapping
+    @PutMapping("/atualizar")
     public ResponseEntity<Colaborador> put(@Valid @RequestBody Colaborador colaborador) {
         return colaboradorRepository.findById(colaborador.getId())
                 .map(resp -> ResponseEntity.status(HttpStatus.OK).body(colaboradorRepository.save(colaborador)))

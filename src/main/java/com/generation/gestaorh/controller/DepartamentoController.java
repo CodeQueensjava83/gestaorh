@@ -21,7 +21,7 @@ public class DepartamentoController {
     private DepartamentoRepository departamentoRepository;
 
     // Listar todos os departamentos
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Departamento>> getAll() {
         return ResponseEntity.ok(departamentoRepository.findAll());
     }
@@ -34,21 +34,15 @@ public class DepartamentoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Buscar departamentos pelo nome
-    @GetMapping("/nome/{nome}")
-    public ResponseEntity<List<Departamento>> getByNome(@PathVariable String nome) {
-        return ResponseEntity.ok(departamentoRepository.findAllByNomeContainingIgnoreCase(nome));
-    }
-
     // Criar novo departamento
-    @PostMapping
+    @PostMapping("/cadastrar")
     public ResponseEntity<Departamento> postDepartamento(@Valid @RequestBody Departamento departamento) {
         departamento.setId(null); // garante que é novo registro
         return ResponseEntity.status(HttpStatus.CREATED).body(departamentoRepository.save(departamento));
     }
 
     // Atualizar departamento existente
-    @PutMapping
+    @PutMapping("/atualizar")
     public ResponseEntity<Departamento> putDepartamento(@Valid @RequestBody Departamento departamento) {
         return departamentoRepository.findById(departamento.getId())
                 .map(depto -> ResponseEntity.ok(departamentoRepository.save(departamento)))
