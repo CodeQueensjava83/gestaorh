@@ -1,6 +1,7 @@
 package com.generation.gestaorh.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.gestaorh.model.Usuario;
+import com.generation.gestaorh.model.UsuarioLogin;
 import com.generation.gestaorh.repository.UsuarioRepository;
+import com.generation.gestaorh.service.UsuarioService;
 
 import jakarta.validation.Valid;
 
@@ -26,6 +29,9 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@GetMapping
 	public ResponseEntity<List<Usuario>> findAll() {
@@ -44,23 +50,26 @@ public class UsuarioController {
 		return ResponseEntity.ok(usuarioRepository.findAllByUsuarioContainingIgnoreCase(usuario));
 	}
 	
-	@PostMapping
-    public ResponseEntity<Usuario> create(@Valid @RequestBody Usuario user) {
-        if (usuarioRepository.findByUsuario(user.getUsuario()).isEmpty()) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(user));
-		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
+	@PostMapping("/cadastrar")
+	public ResponseEntity<Usuario> post(@Valid @RequestBody Usuario usuario) {
+	        return usuarioService.cadastrarUsuario(usuario)
+	                .map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
+	                .orElse(ResponseEntity.badRequest().build());
+	}
 	
-    @PutMapping
-    public ResponseEntity<Usuario> update(@Valid @RequestBody Usuario usuario) {
-        return usuarioRepository.findById(usuario.getId())
-                .map(resposta -> {
-               
-                    return ResponseEntity.status(HttpStatus.OK).body(usuarioRepository.save(usuario));
-                })
-                .orElse(ResponseEntity.notFound().build());
-        }
+	@PutMapping("/atualizar")
+	public ResponseEntity<Usuario> put(@Valid @RequestBody Usuario usuario) {
+		return usuarioService.atualizarUsuario(usuario)
+				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
+				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+		}
+
+	@PostMapping("/logar")
+	public ResponseEntity<UsuarioLogin> autenticar(@Valid @RequestBody Optional<UsuarioLogin> usuarioLogin) {
+		return usuarioService.autenticarUsuario(usuarioLogin)
+				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
+				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+		}
 
 
 }
