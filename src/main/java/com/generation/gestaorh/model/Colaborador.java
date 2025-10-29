@@ -2,7 +2,6 @@ package com.generation.gestaorh.model;
 
 import java.math.BigDecimal;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -12,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -34,7 +34,7 @@ public class Colaborador {
     private String setor;
 
     @NotNull(message = "O salário é obrigatório")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "#0.000")
+    @DecimalMin(value = "0.01", message = "O preço deve ser maior que zero.")
     private BigDecimal salario;
     
     @ManyToOne
