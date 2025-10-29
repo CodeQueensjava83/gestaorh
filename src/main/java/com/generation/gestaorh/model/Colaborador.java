@@ -2,6 +2,7 @@ package com.generation.gestaorh.model;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -33,6 +34,7 @@ public class Colaborador {
     private String setor;
 
     @NotNull(message = "O salário é obrigatório")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "#0.000")
     private BigDecimal salario;
     
     @ManyToOne
