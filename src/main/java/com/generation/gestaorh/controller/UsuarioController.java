@@ -33,7 +33,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@GetMapping
+	@GetMapping("/all")
 	public ResponseEntity<List<Usuario>> findAll() {
 		return ResponseEntity.ok(usuarioRepository.findAll());
 	}
@@ -45,11 +45,7 @@ public class UsuarioController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
-	@GetMapping("/usuario/{usuario}")
-	public ResponseEntity<List<Usuario>> getAllByUsuario(@PathVariable String usuario) {
-		return ResponseEntity.ok(usuarioRepository.findAllByUsuarioContainingIgnoreCase(usuario));
-	}
-	
+
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Usuario> post(@Valid @RequestBody Usuario usuario) {
 	        return usuarioService.cadastrarUsuario(usuario)
