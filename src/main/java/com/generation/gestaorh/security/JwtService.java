@@ -21,6 +21,7 @@ public class JwtService {
     @Value("${jwt.secret}")
     private String secret;
     
+    private static final String SECRET = "ffe1b0dde7abf8310eb11271e5d299ac4a8b2225f6b7081a402fe3ac43bd6497";
     private static final Duration EXPIRATION_DURATION = Duration.ofMinutes(60);
     
     private SecretKey signingKey;
