@@ -12,7 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -69,17 +68,17 @@ public class Colaborador {
     public BigDecimal getSalario() { return salario; }
     public void setSalario(BigDecimal salario) { this.salario = salario; }
 
-    public int getDependentes() {
+    public Integer getDependentes() {
 		return dependentes;
 	}
-	public void setDependentes(int dependentes) {
+	public void setDependentes(Integer dependentes) {
 		this.dependentes = dependentes;
 	}
 	
-	public int getHorasMensais() {
+	public Integer getHorasMensais() {
 		return horasMensais;
 	}
-	public void setHorasMensais(int horasMensais) {
+	public void setHorasMensais(Integer horasMensais) {
 		this.horasMensais = horasMensais;
 	}
     
