@@ -13,9 +13,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
@@ -33,24 +35,16 @@ public class Colaborador {
     private String cargo;
 
     @NotBlank(message = "O setor é obrigatório")
-  
     private String setor;
 
     @NotNull(message = "O salário é obrigatório")
-    @Column(precision = 10, scale = 2)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "R$ #,##0.00")
+    @Positive(message = "O Salário deve ser um valor positivo")
+	@Digits(integer = 10, fraction = 2)
     private BigDecimal salario;
     
-    @Column(precision = 6, scale = 2)
+    @NotNull(message = "O número de Horas Mensais é obrigatório!")
+	@Positive(message = "O número de Horas Mensais deve ser um numero positivo")
     private int horasMensais;
-    
-    @Column(precision = 10, scale = 2)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "R$ #,##0.00")
-    private BigDecimal bonus;
-    
-    @Column(precision = 10, scale = 2)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "R$ #,##0.00")
-    private BigDecimal descontos;
     
     @Min(value = 0, message = "O Número de Dependentes deve ser um numero positivo ou zero")
 	@NotNull(message = "O Número de Dependentes é obrigatório!")
@@ -78,14 +72,7 @@ public class Colaborador {
     public BigDecimal getSalario() { return salario; }
     public void setSalario(BigDecimal salario) { this.salario = salario; }
 
-	public Departamento getDepartamento() {
-		return departamento;
-	}
-	public void setDepartamento(Departamento departamento) {
-		this.departamento = departamento;
-	}
-	
-	public int getDependentes() {
+    public int getDependentes() {
 		return dependentes;
 	}
 	public void setDependentes(int dependentes) {
@@ -98,19 +85,12 @@ public class Colaborador {
 	public void setHorasMensais(int horasMensais) {
 		this.horasMensais = horasMensais;
 	}
-	public BigDecimal getBonus() {
-		return bonus;
-	}
-	public void setBonus(BigDecimal bonus) {
-		this.bonus = bonus;
-	}
-	public BigDecimal getDescontos() {
-		return descontos;
-	}
-	public void setDescontos(BigDecimal descontos) {
-		this.descontos = descontos;
-	}
     
-	
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
     
 }

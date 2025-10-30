@@ -1,5 +1,6 @@
 package com.generation.gestaorh.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ public class Usuario {
 	@NotBlank(message = "O atributo nome é obrigatório!")
 	private String nome;
 	
+	@Schema(example = "email@email.com.br")
 	@NotBlank(message = "O atributo usuario é obrigatorio!")
 	@Email(message = "O atributo usuario deve ser um email valido!")
 	private String usuario;

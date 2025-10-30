@@ -17,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.gestaorh.model.Colaborador;
+import com.generation.gestaorh.record.CalculoSalario;
+import com.generation.gestaorh.record.Holerite;
 import com.generation.gestaorh.repository.ColaboradorRepository;
+import com.generation.gestaorh.service.CalcularSalarioService;
+import com.generation.gestaorh.service.ColaboradorService;
 
 import jakarta.validation.Valid;
 
@@ -26,9 +30,15 @@ import jakarta.validation.Valid;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ColaboradorController {
 
+	@Autowired
+	private ColaboradorService colaboradorSevice;
 	
-    @Autowired
-    private ColaboradorRepository colaboradorRepository;
+	@Autowired
+	private CalcularSalarioService calcularSalarioService;
+	
+	@Autowired
+	private ColaboradorRepository colaboradorRepository;
+    
     
     // GET all
     @GetMapping("/all")
@@ -67,5 +77,13 @@ public class ColaboradorController {
         }
         colaboradorRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+        
+    }
+    
+    @PostMapping("/calcularsalario/{id}")
+    public ResponseEntity<Holerite> calcularSalario(@PathVariable Long id, @RequestBody CalculoSalario dadoSalario) {
+    	Holerite holerite = calcularSalarioService.calcularSalario(id, dadoSalario);
+    	
+    	return ResponseEntity.status(HttpStatus.OK).body(holerite);
     }
 }
