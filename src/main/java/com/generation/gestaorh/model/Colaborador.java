@@ -2,10 +2,8 @@ package com.generation.gestaorh.model;
 
 import java.math.BigDecimal;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -44,12 +42,11 @@ public class Colaborador {
     
     @NotNull(message = "O número de Horas Mensais é obrigatório!")
 	@Positive(message = "O número de Horas Mensais deve ser um numero positivo")
-    private int horasMensais;
+    private Integer horasMensais;
     
-    @Min(value = 0, message = "O Número de Dependentes deve ser um numero positivo ou zero")
 	@NotNull(message = "O Número de Dependentes é obrigatório!")
 	@PositiveOrZero(message = "O número de Dependentes deve ser um numero positivo ou zero")
-	private int dependentes = 0;
+	private Integer dependentes = 0;
     
     @ManyToOne
     @JoinColumn(name = "departamento_id")
