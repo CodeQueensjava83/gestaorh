@@ -18,7 +18,7 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtService {
     
-    @Value("${jwt.secret}")
+    @Value("${jwt.secrets}")
     private String secret;
     private static final Duration EXPIRATION_DURATION = Duration.ofMinutes(60);
     
