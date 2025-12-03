@@ -4,6 +4,7 @@ import java.util.List;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_departamentos")
@@ -22,6 +23,7 @@ public class Departamento {
     private String descricao;
 
     @OneToMany(mappedBy = "departamento", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("departamento") // evita loop ao serializar
     private List<Colaborador> colaboradores;
 
     // Getters e Setters

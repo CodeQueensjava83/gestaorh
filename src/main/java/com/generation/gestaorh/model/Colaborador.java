@@ -1,21 +1,9 @@
 package com.generation.gestaorh.model;
 
 import java.math.BigDecimal;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "tb_colaboradores")
@@ -36,22 +24,22 @@ public class Colaborador {
 
     @NotNull(message = "O salário é obrigatório")
     @Positive(message = "O Salário deve ser um valor positivo")
-	@Digits(integer = 10, fraction = 2)
+    @Digits(integer = 10, fraction = 2)
     private BigDecimal salario;
-    
+
     @NotNull(message = "O número de Horas Mensais é obrigatório!")
-	@Positive(message = "O número de Horas Mensais deve ser um numero positivo")
+    @Positive(message = "O número de Horas Mensais deve ser um número positivo")
     private Integer horasMensais;
-    
-	@NotNull(message = "O Número de Dependentes é obrigatório!")
-	@PositiveOrZero(message = "O número de Dependentes deve ser um numero positivo ou zero")
-	private Integer dependentes = 0;
-    
+
+    @NotNull(message = "O Número de Dependentes é obrigatório!")
+    @PositiveOrZero(message = "O número de Dependentes deve ser um número positivo ou zero")
+    private Integer dependentes = 0;
+
     @ManyToOne
     @JoinColumn(name = "departamento_id")
-    @JsonIgnoreProperties("colaborador")
+    @JsonIgnoreProperties("colaboradores") // evita loop ao serializar
     private Departamento departamento;
-    
+
     // Getters e Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -68,25 +56,12 @@ public class Colaborador {
     public BigDecimal getSalario() { return salario; }
     public void setSalario(BigDecimal salario) { this.salario = salario; }
 
-    public Integer getDependentes() {
-		return dependentes;
-	}
-	public void setDependentes(Integer dependentes) {
-		this.dependentes = dependentes;
-	}
-	
-	public Integer getHorasMensais() {
-		return horasMensais;
-	}
-	public void setHorasMensais(Integer horasMensais) {
-		this.horasMensais = horasMensais;
-	}
-    
-	public Departamento getDepartamento() {
-		return departamento;
-	}
-	public void setDepartamento(Departamento departamento) {
-		this.departamento = departamento;
-	}
-    
+    public Integer getHorasMensais() { return horasMensais; }
+    public void setHorasMensais(Integer horasMensais) { this.horasMensais = horasMensais; }
+
+    public Integer getDependentes() { return dependentes; }
+    public void setDependentes(Integer dependentes) { this.dependentes = dependentes; }
+
+    public Departamento getDepartamento() { return departamento; }
+    public void setDepartamento(Departamento departamento) { this.departamento = departamento; }
 }
