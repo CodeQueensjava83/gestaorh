@@ -23,7 +23,10 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/departamentos")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(
+	    origins = {"http://localhost:5173/", "https://gestaorh-529f.onrender.com/"},
+	    allowedHeaders = "*"
+	)
 public class DepartamentoController {
 
 	@Autowired
