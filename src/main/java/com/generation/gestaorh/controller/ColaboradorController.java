@@ -26,10 +26,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/colaboradores")
-@CrossOrigin(
-	    origins = {"http://localhost:5173/", "https://gestaorh-529f.onrender.com/"},
-	    allowedHeaders = "*"
-	)
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ColaboradorController {
 
 	@Autowired
