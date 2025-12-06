@@ -27,8 +27,8 @@ public class DepartamentoService {
         return departamentoRepository.findById(id);
     }
 
-    public List<Departamento> getByDescricao(String descricao) {
-        return departamentoRepository.findAllByNomeContainingIgnoreCase(descricao);
+    public List<Departamento> getByNome(String nome) {
+        return departamentoRepository.findAllByNomeContainingIgnoreCase(nome);
     }
 
     public Departamento post(@Valid Departamento departamento) {

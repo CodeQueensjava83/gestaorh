@@ -41,9 +41,9 @@ public class DepartamentoController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    @GetMapping("/descricao/{descricao}")
-    public ResponseEntity<List<Departamento>> getByDescricao(@PathVariable String descricao) {
-        return ResponseEntity.ok(departamentoService.getByDescricao(descricao));
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<List<Departamento>> getByNome(@PathVariable String nome) {
+        return ResponseEntity.ok(departamentoService.getByNome(nome));
     }
 
     @PostMapping

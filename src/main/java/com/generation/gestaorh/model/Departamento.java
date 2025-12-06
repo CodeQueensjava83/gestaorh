@@ -19,9 +19,6 @@ public class Departamento {
     @Column(nullable = false, length = 100)
     private String nome;
 
-    @Size(max = 255, message = "A descrição deve ter no máximo 255 caracteres")
-    private String descricao;
-
     @OneToMany(mappedBy = "departamento", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("departamento") // evita loop ao serializar
     private List<Colaborador> colaboradores;
@@ -32,9 +29,6 @@ public class Departamento {
 
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
-
-    public String getDescricao() { return descricao; }
-    public void setDescricao(String descricao) { this.descricao = descricao; }
 
     public List<Colaborador> getColaboradores() { return colaboradores; }
     public void setColaboradores(List<Colaborador> colaboradores) { this.colaboradores = colaboradores; }
