@@ -1,5 +1,6 @@
 package com.generation.gestaorh.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -21,7 +22,7 @@ public class Departamento {
 
     @OneToMany(mappedBy = "departamento", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("departamento") // evita loop ao serializar
-    private List<Colaborador> colaboradores;
+    private List<Colaborador> colaboradores = new ArrayList<>();
 
     // Getters e Setters
     public Long getId() { return id; }
